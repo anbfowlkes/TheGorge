@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_22_190101) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_22_195438) do
+  create_table "pieces", force: :cascade do |t|
+    t.integer "level"
+    t.integer "h_pos"
+    t.integer "v_pos"
+    t.integer "player"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "player_one_pieces", force: :cascade do |t|
     t.integer "variant"
     t.integer "position"

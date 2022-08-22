@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  level: 1
+  h_pos: 1
+  v_pos: 1
+  player: 1
+
+two:
+  level: 1
+  h_pos: 1
+  v_pos: 1
+  player: 1
