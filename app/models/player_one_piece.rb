@@ -1,0 +1,9 @@
+class PlayerOnePiece < ApplicationRecord
+
+
+
+
+
+
+    
+end

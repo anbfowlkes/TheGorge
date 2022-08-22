@@ -1,0 +1,10 @@
+class PlayerTwoPiece < ApplicationRecord
+
+
+
+
+
+
+
+    
+end
