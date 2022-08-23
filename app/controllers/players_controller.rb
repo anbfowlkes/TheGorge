@@ -27,7 +27,7 @@ class PlayersController < ApplicationController
         render html: 'Welcome to the Gorge'
     end
 
-    def pieceshow
-        render json: PlayerOnePiece.find(params[:id])
-    end
+    # def pieceshow
+    #     render json: PlayerOnePiece.find(params[:id])
+    # end
 end

@@ -1,6 +1,6 @@
 class Player < ApplicationRecord
 
-    board = {
+    $board = {
         '11': nil, '21': nil, '31': nil, '41': nil,
         '51': nil, '61': nil, '71': nil, '81': nil,
         '12': nil, '22': nil, '32': nil, '42': nil,
@@ -20,17 +20,17 @@ class Player < ApplicationRecord
     }
 
     def put_down(level, h_pos, v_pos)
-        if put_points <= 0
+        if @put_points <= 0
             puts "You are out of put points"
             return
         end
         if username == "Player 1"
-            start_line = 1
+            @start_line = 1
         end
         if username == "Player 2"
-            start_line = 8
+            @start_line = 8
         end
-        if v_pos != self.start_line
+        if v_pos != @start_line
             puts "Cannot place there"
             return
         end
@@ -39,8 +39,19 @@ class Player < ApplicationRecord
             puts "Cannot place there"
             return
         else
-            Piece.create!(level: level, h_pos: h_pos, v_pos: v_pos)
-            put_points = put_points - level
+            if username == "Player 1"
+                piece = Piece.create!(level: level, h_pos: h_pos, v_pos: v_pos, player: 1)
+                pos = h_pos.to_str + v_pos.to_str
+                pos = pos.to_sym
+                $board[pos] = piece
+            end
+                if username == "Player 2"
+                piece = Piece.create!(level: level, h_pos: h_pos, v_pos: v_pos, player: 2)
+                pos = h_pos.to_str + v_pos.to_str
+                pos = pos.to_sym
+                $board[pos] = piece
+            end
+            @put_points = @put_points - level
         end
     end
 
@@ -73,10 +84,31 @@ class Player < ApplicationRecord
         end
     end
 
-    def turn
-        put_points = 5
-        move_points = 5
+    def self.board
+        puts $board
+        # x = "11"
+        # x = x.to_sym
+        # puts $board[x]
+    end
 
+    def turn
+        @put_points = 5
+        move_points = 5
+        puts "What action would you like to take? Say 'put piece' or 'move piece' or 'end turn'"
+        action = gets.chomp
+        puts "Action: " + action
+        if action =="put piece"
+            puts "What level?"
+            level = gets.chomp
+            puts "Horizontal position?"
+            h_pos = gets.chomp
+            h_pos = h_pos.to_i
+            puts "Vertical position?"
+            v_pos = gets.chomp
+            v_pos = v_pos.to_i
+            ##
+            self.put_down(level, h_pos, v_pos)
+        end
 
 
 
