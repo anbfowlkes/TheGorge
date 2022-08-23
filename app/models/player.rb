@@ -45,13 +45,13 @@ class Player < ApplicationRecord
             return
         else
             if username == "Player 1"
-                piece = Piece.create!(level: level, h_pos: h_pos, v_pos: v_pos, player: 1)
+                piece = Piece.new(level: level, h_pos: h_pos, v_pos: v_pos, player: 1)
                 pos = h_pos.to_s + v_pos.to_s
                 pos = pos.to_sym
                 $board[pos] = piece
             end
                 if username == "Player 2"
-                piece = Piece.create!(level: level, h_pos: h_pos, v_pos: v_pos, player: 2)
+                piece = Piece.new(level: level, h_pos: h_pos, v_pos: v_pos, player: 2)
                 pos = h_pos.to_s + v_pos.to_s
                 pos = pos.to_sym
                 $board[pos] = piece
@@ -67,8 +67,9 @@ class Player < ApplicationRecord
             puts "You cannot move another piece."
             return
         end
-        t_h_pos = piece.h_pos.to_s
-        t_r_pos = piece.r_pos.to_s
+        puts piece
+        t_h_pos = piece[:"h_pos"].to_s
+        t_r_pos = piece[:"r_pos"].to_s
         t = t_h_pos + t_r_pos
         t = t.to_sym
         new_h_pos = ((new_position * 1.0) / 10).to_int
@@ -126,7 +127,7 @@ class Player < ApplicationRecord
 
     def turn
        
-        while ($put_points > 0 || @move_points > 0)
+        while ($put_points > 0 || $move_points > 0)
             puts "What action would you like to take? Say 'put piece' or 'move piece' or 'end turn'"
             action = gets.chomp
             puts "Action: " + action
@@ -145,8 +146,13 @@ class Player < ApplicationRecord
             if action == "move piece"
                 puts "From where? (enter a coordinate in number form, such as 12)"
                 origin = gets.chomp
+                origin.to_s
                 origin.to_sym
-                piece = Player.board[origin]
+                puts "origin is, "
+                puts origin 
+                piece = $board[origin]
+                puts "Piece is: "
+                puts piece
                 puts "To where? (enter a coordinate in number form, such as 12)"
                 destination = gets.chomp
                 destination.to_i
